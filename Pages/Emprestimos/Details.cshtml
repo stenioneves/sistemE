@@ -1,0 +1,61 @@
+@page
+@model sistemE.Pages.Emprestimos.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Emprestimo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emprestimo.ValorSolicitado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emprestimo.ValorSolicitado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emprestimo.qtd)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emprestimo.qtd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emprestimo.DataSolicitacao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emprestimo.DataSolicitacao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emprestimo.Observacao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emprestimo.Observacao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emprestimo.Solicitante)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emprestimo.Solicitante)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emprestimo.status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emprestimo.status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emprestimo.IdentityUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emprestimo.IdentityUser.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Emprestimo.Id">Editar</a> |
+    <a asp-page="./Index">Voltar a lista</a>
+</div>

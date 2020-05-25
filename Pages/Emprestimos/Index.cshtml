@@ -1,0 +1,85 @@
+@page
+@model sistemE.Pages.Emprestimos.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Emprestimos</h1>
+
+<p>
+    <a asp-page="Create">Novo Emprestimo</a>
+</p>
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Emprestimo[0].ValorSolicitado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emprestimo[0].qtd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emprestimo[0].DataSolicitacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emprestimo[0].Observacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emprestimo[0].Solicitante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emprestimo[0].status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emprestimo[0].Autorizado)
+            </th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Emprestimo) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorSolicitado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qtd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataSolicitacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observacao)
+            </td>
+            <td>
+               @foreach (var b in Model.Beneficiario)
+               {
+                   if(item.Solicitante==b.Id)
+                   {
+                      @Html.DisplayFor(modelB =>b.Nome) 
+                   }
+                   
+               }
+            </td>
+            <td>
+                @foreach (var s in Model.Situacao)
+                {
+                   if(item.status==s.Id) 
+                   {
+                       @Html.DisplayFor(ModelS=> s.Descricao)
+                   }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdentityUser.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

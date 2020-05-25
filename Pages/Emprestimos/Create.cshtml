@@ -1,0 +1,63 @@
+@page
+@model sistemE.Pages.Emprestimos.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Novo</h1>
+
+<h4>Emprestimo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Emprestimo.ValorSolicitado" class="control-label"></label>
+                <input asp-for="Emprestimo.ValorSolicitado" class="form-control" />
+                <span asp-validation-for="Emprestimo.ValorSolicitado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emprestimo.qtd" class="control-label"></label>
+                <input asp-for="Emprestimo.qtd" class="form-control" />
+                <span asp-validation-for="Emprestimo.qtd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emprestimo.DataSolicitacao" class="control-label"></label>
+                <input asp-for="Emprestimo.DataSolicitacao" class="form-control" />
+                <span asp-validation-for="Emprestimo.DataSolicitacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emprestimo.Observacao" class="control-label"></label>
+                <input asp-for="Emprestimo.Observacao" class="form-control" />
+                <span asp-validation-for="Emprestimo.Observacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emprestimo.Solicitante" class="control-label"></label>
+                <select asp-for="Emprestimo.Solicitante" class="form-control" asp-items="ViewBag.Solicitante"></select>
+                <span asp-validation-for="Emprestimo.Solicitante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emprestimo.status" class="control-label"></label>
+                <select asp-for="Emprestimo.status" class="form-control" asp-items="ViewBag.Situacao"></select>
+                <span asp-validation-for="Emprestimo.status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emprestimo.Autorizado" class="control-label"></label>
+                <select asp-for="Emprestimo.Autorizado" class ="form-control" asp-items="ViewBag.Autorizado"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

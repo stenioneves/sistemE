@@ -1,0 +1,125 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Dashbord</h1>
+    <p>Dados integrados</p>
+</div>
+<div id="divmensagem"></div>
+<div id="divmensagem2"></div>
+<div id="divmensagem3"></div>
+<div class=" input-group md-3">
+<input type="search" id="pequisaEmp" name="pequisaEmp" class="form-control" placeholder="Digite o nome do Beneficiário" aria-label="Digite o nome do Beneficiário"/>
+ <div class="input-group-append">
+    <span class="input-group-text text-success" id="basic-addon2">Pesquisa</span>
+    
+  </div>
+  
+</div>
+<div id="ocuter">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Movimentações
+        </button>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#ocuter">
+      <div class="card-body">
+<span id="spanErro"></span>
+<div id="divtable"></div>
+   </div>
+    </div>
+  </div>
+ <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         Parcelas
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#ocuter">
+      <div class="card-body">
+<div id="parceladiv"></div>
+ </div>
+  </div>
+  </div>
+  </div>
+<input type="button" value="Carregar Dados" class="btn btn-success btn-md" onclick="MostrarEmprestimos()"/>
+<input type="button" value="Clique aqui para criar o carro" class="btn btn-primary btn-md" onclick="MostrarCarro()" disabled/>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/TypeScript/moment.js"></script>
+<script src="~/TypeScript/EmprestimoApi.js"></script>
+<script src="~/TypeScript/PagamentoApi.js"></script>
+<script src="~/TypeScript/ServicoApi.js"></script>
+<script src="~/TypeScript/Carro.js"></script>
+<script src="~/TypeScript/NovoCarro.js"></script>
+<script>
+    var Graf_porcent = function (numpx, totalp) {
+    var porc = 0;
+    return numpx* 100 / totalp;
+};
+    var exibirParcela = function (nump) {
+    var htmlp = "";
+    var grhtml="";
+    var pag=0;
+    var em= 0;
+    var atr=0;
+
+    pagamentoConsulta.forEach(function (pagx) {
+        
+
+        htmlp += '<tr>';
+        htmlp += "<td>" + pagx.id + "</td>";
+        htmlp += "<td>" + pagx.numParcela + "</td>";
+        htmlp += "<td>" + moment(pagx.dataVenc).format('DD/MM/YYYY') + "</td>";
+        htmlp += "<td>" + moment(pagx.dataPag).format('DD/MM/YYYY') + "</td>";
+        if(moment(moment(pagx.dataPag).format('YYYY-MM-DD')).isSame('0001-10-20','year'))
+        {  var tod = moment();
+           
+            
+           if(moment(tod.format('YYYY-MM-DD')).isAfter(moment(pagx.dataVenc).format('YYYY-MM-DD'))) 
+           { 
+               htmlp += "<td class='alert alert-danger' role='alert'>Parcela em <strong>atraso!</strong></td>";
+               atr++;
+               //Observar que os testes devem seguir o padrão americano
+
+
+
+           }
+           else
+           {
+               htmlp += "<td class='alert alert-info' role='alert'>Em <strong>aberto!</strong></td>";
+               em++;
+               
+           }
+        }
+        else
+        {
+            htmlp += "<td class='alert alert-success' role='alert'> <strong>Paga!</strong></td>";
+            pag++;
+            
+        }
+        
+        htmlp += '</tr>';
+
+       
+        $("#testez").html(htmlp);
+    });
+     pagamentoConsulta=[];
+     var p=+Graf_porcent(pag,nump);
+    grhtml+='<div class="progress">'+
+  '<div class="progress-bar progress-bar-striped bg-danger " role="progressbar" style="width:'+Graf_porcent(atr,nump)+'%" aria-valuenow="'+Graf_porcent(atr,nump)+'" aria-valuemin="0" aria-valuemax="100">'+Graf_porcent(atr,nump)+'%</div>'+
+  '<div class="progress-bar progress-bar-striped bg-success " role="progressbar" style="width:'+p+'%" aria-valuenow="'+p+'" aria-valuemin="0" aria-valuemax="100">'+p+'%</div>'+
+  '<div class="progress-bar progress-bar-striped bg-info " role="progressbar" style="width: '+Graf_porcent(em,nump)+'%" aria-valuenow="'+Graf_porcent(em,nump)+'" aria-valuemin="0" aria-valuemax="100">'+Graf_porcent(em,nump)+'%</div>'+
+  '</div>';
+    $("#grafico").html(grhtml);
+     pagamentoConsulta=[];
+
+};
+</script>
